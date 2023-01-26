@@ -43,5 +43,43 @@ def second_task():
     plt.show()
 
 
+def third_task():
+
+    dataframe = pandas.read_csv('titles.csv')
+
+    # Sorting years
+    films = dataframe[dataframe['release_year'] >= 2000]
+     #years = list(films['release_year'].unique())
+     #years.sort()
+    films['above_8'] = films['imdb_score'] > 8.0
+    films = films.groupby('release_year').mean()
+    films['above_8'] = films['above_8'] * 100
+
+
+
+
+    plt.plot( films.index, films['above_8'])
+    plt.xlabel('year')
+    plt.ylabel('percentage of movies and films')
+    plt.show()
+
+    most_successful_year = films['above_8'].idxmax()
+    print(f'The most successful year is: {most_successful_year}')
+
+
+
 first_task()
 second_task()
+third_task()
+
+
+
+
+
+
+
+
+
+
+
+
